@@ -3,7 +3,7 @@
 import requests
 import json
 
-# import webbrowser
+import webbrowser
 
 # apply for a flickr authentication key at http://www.flickr.com/services/apps/create/apply/?
 # paste the key (not the secret) as the value of the variable flickr_key
@@ -29,6 +29,7 @@ def get_flickr_data(tags_string):
         baseurl, params=params_diction)
     # Useful for debugging: print the url! Uncomment the below line to do so.
     print(flickr_resp.url)  # Paste the result into the browser to check it out...
+    # webbrowser.open(flickr_resp.url)
     return flickr_resp.json()
 
 
