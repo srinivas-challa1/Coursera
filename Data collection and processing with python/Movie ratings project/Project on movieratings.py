@@ -75,16 +75,14 @@ def get_movie_rating(OMDBdict):
            # rotten_rating = int(rotten_rating)
         else:
             rating = 0
-
     return(rating)
-
-
 #print(get_movie_rating(get_movie_data("Deadpool 2")))
-def get_sorted_recommendations(listMovieTitle):
-    listMovie = get_related_titles(listMovieTitle)
-    listMovie = sorted(listMovie, key=lambda movieName: (
-        get_movie_rating(get_movie_data(movieName)), movieName), reverse=True)
 
+
+def get_sorted_recommendations(MovieTitleList):
+    MovieList = get_related_titles(listMovieTitle)
+    MovieList = sorted(listMovie, key=lambda movieName: (
+        get_movie_rating(get_movie_data(movieName)), movieName), reverse=True)
     return listMovie
 
 
