@@ -48,12 +48,12 @@ def get_related_titles(Movietitles):
     relatedMovies = []
     for title in Movietitles:
         Movielist = extract_movie_titles(get_movies_from_tastedive(title))
-        #relatedMovies = [title for title in Movielist if title not in relatedMovies]
+        # relatedMovies = [title for title in Movielist if title not in relatedMovies]
         for movie in Movielist:
             if movie not in relatedMovies:
                 relatedMovies.append(movie)
     return(relatedMovies)
-#print(get_related_titles(["Black Panther", "Captain Marvel"]))
+# print(get_related_titles(["Black Panther", "Captain Marvel"]))
 
 
 def get_movie_data(MovieName):
@@ -62,5 +62,30 @@ def get_movie_data(MovieName):
     omdbresp = requests.get(baseurl, params=paramDict)
     omdbDict = json.loads(omdbresp.text)
     return(omdbDict)
+
+
 # print(get_movie_data("Venom"))
 #print(get_movie_data("Baby Mama"))
+
+def get_movie_rating(OMDBdict):
+    rating = None
+    if len(OMDBdict['Ratings']) > 1:
+        if OMDBdict['Ratings'][1]['Source'] == 'Rotten Tomatoes':
+            rating = int(OMDBdict['Ratings'][1]['Value'][:2])
+           # rotten_rating = int(rotten_rating)
+        else:
+            rating = 0
+
+    return(rating)
+
+
+#print(get_movie_rating(get_movie_data("Deadpool 2")))
+def get_sorted_recommendations(listMovieTitle):
+    listMovie = get_related_titles(listMovieTitle)
+    listMovie = sorted(listMovie, key=lambda movieName: (
+        get_movie_rating(get_movie_data(movieName)), movieName), reverse=True)
+
+    return listMovie
+
+
+print(get_sorted_recommendations(["Bridesmaids", "Sherlock Holmes"]))
