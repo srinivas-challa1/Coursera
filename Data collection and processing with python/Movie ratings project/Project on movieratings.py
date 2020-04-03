@@ -62,7 +62,5 @@ def get_movie_data(MovieName):
     omdbresp = requests.get(baseurl, params=paramDict)
     omdbDict = json.loads(omdbresp.text)
     return(omdbDict)
-
-
-print(get_movie_data("Venom"))
-print(get_movie_data("Baby Mama"))
+# print(get_movie_data("Venom"))
+#print(get_movie_data("Baby Mama"))
