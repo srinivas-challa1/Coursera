@@ -61,6 +61,7 @@ def get_movie_data(MovieName):
     paramDict = {'t': MovieName, 'r': 'json', 'apikey': '4e843aa5'}
     omdbresp = requests.get(baseurl, params=paramDict)
     omdbDict = json.loads(omdbresp.text)
+    #omdbDict = omdbresp.json()
     return(omdbDict)
 
 
@@ -80,10 +81,11 @@ def get_movie_rating(OMDBdict):
 
 
 def get_sorted_recommendations(MovieTitleList):
-    MovieList = get_related_titles(listMovieTitle)
-    MovieList = sorted(listMovie, key=lambda movieName: (
+    MovieList = get_related_titles(MovieTitleList)
+    MovieList = sorted(MovieList, key=lambda movieName: (
         get_movie_rating(get_movie_data(movieName)), movieName), reverse=True)
-    return listMovie
+
+    return(MovieList)
 
 
 print(get_sorted_recommendations(["Bridesmaids", "Sherlock Holmes"]))
